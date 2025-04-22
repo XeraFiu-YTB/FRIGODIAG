@@ -1,0 +1,19 @@
+backend:
+    functions:
+        - entry: server.js
+          handler: handler
+          name: fastify
+          path: .
+          type: httpServer
+    language:
+        name: js
+        runtime: nodejs20.x
+    path: .
+    scripts:
+        deploy:
+            - npm install
+        local:
+            - npm install
+name: FRIGODIAG
+region: eu-central-1
+yamlVersion: 2
