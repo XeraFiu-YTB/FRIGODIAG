@@ -59,7 +59,9 @@
               "electrovanne_temp_entree": { "value": 28, "unit": "°C", "deviation": "low" },
               "electrovanne_temp_sortie": { "value": 28, "unit": "°C", "deviation": "low" },
               "electrovanne_delta_t": { "value": 0, "unit": "K" }
-        }
+        },
+        "explication_consequences": "Pas assez de fluide pour remplir l'évaporateur correctement. Le fluide s'évapore trop tôt, provoquant une BP basse et une surchauffe élevée en sortie d'évaporateur. Le refroidissement du compresseur est moins bon (T° aspi haute), mais T° refoulement peut être basse car moins de travail. Le sous-refroidissement est faible voire nul. La puissance frigorifique est réduite.",
+        "explication_detection": "Détecté par BP et HP basses, surchauffe totale élevée, faible sous-refroidissement. Le voyant liquide montre des bulles. L'évaporateur peut être partiellement givré seulement près de l'entrée. L'intensité compresseur est faible."
       },
       {
         "id": 2,"level": 1,"nom": "Prédétente au déshydrateur (obstruction partielle)",
@@ -87,7 +89,9 @@
                "electrovanne_temp_entree": { "value": 27, "unit": "°C", "deviation": "low" },
               "electrovanne_temp_sortie": { "value": 27, "unit": "°C", "deviation": "low" },
                "electrovanne_delta_t": { "value": 0, "unit": "K" }
-         }
+         },
+         "explication_consequences": "Le déshydrateur partiellement bouché crée une perte de charge importante sur la ligne liquide. Cela provoque une chute de pression et de température du fluide *après* le déshydrateur (flash-gaz possible). Moins de fluide arrive à l'évaporateur, simulant un manque de charge en aval. BP basse, surchauffe haute.",
+         "explication_detection": "Symptômes similaires à un manque de charge (BP basse, SH haute, bulles au voyant *après* déshy). La clé est le Delta T (différence de température) important entre l'entrée et la sortie du déshydrateur (il devient froid après). La HP peut être normale ou légèrement basse."
       },
       {
           "id": 3,"level": 1,"nom": "Evaporateur trop petit (débit d'air trop faible : filtre sale)",
@@ -115,7 +119,9 @@
               "electrovanne_temp_entree": { "value": 38, "unit": "°C", "deviation": "normal" },
               "electrovanne_temp_sortie": { "value": 38, "unit": "°C", "deviation": "normal" },
               "electrovanne_delta_t": { "value": 0, "unit": "K" }
-          }
+          },
+          "explication_consequences": "Le filtre à air colmaté réduit fortement le débit d'air sur l'évaporateur. Moins d'air = moins d'échange thermique. La BP et la température d'évaporation chutent fortement, provoquant un givrage excessif de l'évaporateur. La puissance frigorifique diminue car le fluide ne s'évapore pas correctement. La surchauffe est faible voire nulle en sortie évaporateur.",
+          "explication_detection": "Se détecte principalement par une BP très basse, une faible surchauffe, un givrage complet de l'évaporateur, un delta T air très faible sur l'évaporateur (l'air sort à peine plus froid qu'il n'entre) ET la visualisation directe du filtre à air très sale."
       },
       {
           "id": 4,"level": 1,"nom": "Excès de charge en fluide frigorigène ou incondensables",
@@ -143,7 +149,9 @@
               "electrovanne_temp_entree": { "value": 40, "unit": "°C", "deviation": "normal" },
               "electrovanne_temp_sortie": { "value": 40, "unit": "°C", "deviation": "normal" },
                "electrovanne_delta_t": { "value": 0, "unit": "K" }
-          }
+          },
+          "explication_consequences": "Trop de fluide ou présence de gaz non condensables (air) augmente artificiellement la HP. La BP augmente aussi car l'évaporateur est 'inondé' ou la T° d'évaporation monte. La T° de refoulement est élevée. Le sous-refroidissement peut être élevé (excès de charge) ou faible/fluctuant (incondensables). Le compresseur consomme plus d'intensité.",
+          "explication_detection": "HP et BP élevées simultanément. T° refoulement haute. Intensité compresseur élevée. Le sous-refroidissement permet de distinguer : élevé = excès de charge probable, faible/normal/fluctuant = incondensables probables (nécessite test spécifique niveau 4)."
       },
       {
           "id": 5,"level": 1,"nom": "Condenseur trop petit (batterie très sale)",
@@ -171,7 +179,9 @@
                "electrovanne_temp_entree": { "value": 50, "unit": "°C", "deviation": "high" },
               "electrovanne_temp_sortie": { "value": 50, "unit": "°C", "deviation": "high" },
               "electrovanne_delta_t": { "value": 0, "unit": "K" }
-          }
+          },
+          "explication_consequences": "Le condenseur sale ne peut pas évacuer correctement la chaleur. La pression et la température de condensation (HP) augmentent fortement. La BP peut aussi monter légèrement. La température de refoulement devient très élevée. Le sous-refroidissement diminue car l'échange est mauvais. Le compresseur force et consomme plus d'intensité.",
+          "explication_detection": "HP très élevée, T° refoulement très élevée. Le delta T air sur le condenseur est faible (l'air sort à peine réchauffé). Le sous-refroidissement est bas malgré une T° liquide haute. L'inspection visuelle du condenseur révèle l'encrassement. BP peut être normale ou haute. Intensité compresseur haute."
       },
       {
           "id": 6, "level": 2, "nom": "Détendeur trop petit (obstruction partielle)",
@@ -199,7 +209,9 @@
               "electrovanne_temp_entree": { "value": 35, "unit": "°C", "deviation": "low" },
               "electrovanne_temp_sortie": { "value": 35, "unit": "°C", "deviation": "low" },
               "electrovanne_delta_t": { "value": 0, "unit": "K" }
-          }
+          },
+          "explication_consequences": "Le détendeur (capillaire ou TXV partiellement bouché/fermé) ne laisse pas passer assez de fluide vers l'évaporateur. Cela cause une BP basse et une surchauffe très élevée, car l'évaporateur est 'assoiffé'. Les symptômes ressemblent beaucoup à un manque de charge.",
+          "explication_detection": "BP basse, surchauffe très élevée (totale et détendeur). HP normale ou basse. Sous-refroidissement normal ou légèrement élevé (le liquide s'accumule avant le détendeur). Le voyant liquide est généralement clair. Difficile à distinguer d'un manque de charge sans vérifier le SR ou suspecter le détendeur (filtre bouché, mauvais réglage - Niv 4)."
       },
       {
           "id": 7, "level": 2, "nom": "Evaporateur trop petit / Batterie très sale",
@@ -227,7 +239,9 @@
               "electrovanne_temp_entree": { "value": 37, "unit": "°C", "deviation": "normal" },
               "electrovanne_temp_sortie": { "value": 37, "unit": "°C", "deviation": "normal" },
               "electrovanne_delta_t": { "value": 0, "unit": "K" }
-          }
+          },
+          "explication_consequences": "L'encrassement de la batterie de l'évaporateur isole les tubes de l'air ambiant. L'échange thermique est mauvais, même si le débit d'air (ventilateur) est correct. La BP chute, la température d'évaporation baisse, et la surchauffe devient faible. Risque de givrage.",
+          "explication_detection": "BP basse, faible surchauffe. Delta T air faible sur l'évaporateur. L'inspection visuelle de la batterie révèle l'encrassement, tandis que le filtre à air est propre (différence avec panne 3)."
       },
        {
           "id": 8, "level": 2, "nom": "Evaporateur trop petit / Autre raison (ex: ventilateur lent)",
@@ -257,7 +271,9 @@
                "electrovanne_temp_entree": { "value": 37, "unit": "°C", "deviation": "normal" },
               "electrovanne_temp_sortie": { "value": 37, "unit": "°C", "deviation": "normal" },
                "electrovanne_delta_t": { "value": 0, "unit": "K" }
-          }
+          },
+          "explication_consequences": "Si le ventilateur de l'évaporateur tourne trop lentement (ou est sous-dimensionné), le débit d'air est insuffisant. Comme pour le filtre sale (Panne 3), l'échange thermique est réduit, la BP baisse, la surchauffe est faible et l'évaporateur givre.",
+          "explication_detection": "Symptômes similaires à Panne 3 et Panne 7 (BP basse, SH basse, Delta T air faible, Givre). La différence est que le filtre à air ET la batterie de l'évaporateur sont propres. La cause est un problème de débit d'air lié au ventilateur lui-même (vitesse, pales, moteur - détails Niv 4)."
       },
        {
           "id": 9, "level": 2, "nom": "Condenseur trop petit / Manque de débit d'air",
@@ -287,7 +303,9 @@
                "electrovanne_temp_entree": { "value": 48, "unit": "°C", "deviation": "high" },
               "electrovanne_temp_sortie": { "value": 48, "unit": "°C", "deviation": "high" },
                "electrovanne_delta_t": { "value": 0, "unit": "K" }
-          }
+          },
+          "explication_consequences": "Si le ventilateur du condenseur tourne trop lentement (ou problème similaire), le débit d'air est insuffisant pour refroidir le fluide. Comme pour un condenseur sale (Panne 5), la HP et la T° refoulement augmentent fortement. Le SR est faible.",
+          "explication_detection": "Symptômes similaires à Panne 5 (HP haute, T° refoulement haute, SR bas, Delta T air condenseur faible). La différence clé est que l'inspection visuelle du condenseur le montre propre. Le problème vient du débit d'air (ventilateur - détails Niv 4)."
       },
        {
           "id": 10, "level": 2, "nom": "Compresseur trop petit (usé, faible compression)",
@@ -315,7 +333,9 @@
               "electrovanne_temp_entree": { "value": 35, "unit": "°C", "deviation": "normal" },
               "electrovanne_temp_sortie": { "value": 35, "unit": "°C", "deviation": "normal" },
               "electrovanne_delta_t": { "value": 0, "unit": "K" }
-          }
+          },
+          "explication_consequences": "Un compresseur usé (clapets non étanches, segments...) n'arrive plus à aspirer correctement (la BP monte) ni à comprimer efficacement (la HP baisse). Le débit de fluide diminue, la puissance frigo chute. La T° de refoulement est plus basse que la normale.",
+          "explication_detection": "HP basse et BP haute simultanément (l'écart se réduit). T° refoulement plutôt basse. Surchauffe élevée. Intensité compresseur faible. Manque de froid généralisé. Le diagnostic précis nécessite des contrôles internes au compresseur (Niv 4)."
       },
       {
         "id": 11,"level": 3,"nom": "Manque de charge en fluide frigorigène (système TXV)",
@@ -341,7 +361,9 @@
               "filtre_air_voir": "Propre",
               "voyant_liquide_etat": "Bulles",
               "intensite_compresseur": {"value": 3.5, "unit": "A", "deviation": "low"}
-        }
+        },
+         "explication_consequences": "Identique à la Panne 1. Pas assez de fluide circule dans le système.",
+         "explication_detection": "Identique à la Panne 1. HP/BP basses, SH haute, SR bas, bulles au voyant."
       },
       {
         "id": 12,"level": 3,"nom": "Prédétente sur la ligne liquide / Déshydrateur colmaté",
@@ -367,7 +389,9 @@
               "filtre_air_voir": "Propre",
               "voyant_liquide_etat": "Bulles (après déshy)",
               "intensite_compresseur": {"value": 4.0, "unit": "A", "deviation": "low"}
-         }
+         },
+          "explication_consequences": "Identique à la Panne 2. Le bouchon sur le déshydrateur limite le débit de fluide vers l'évaporateur.",
+         "explication_detection": "Identique à la Panne 2. Le symptôme clé est le delta T élevé sur le déshydrateur."
       },
        {
         "id": 13,"level": 3,"nom": "Prédétente sur la ligne liquide / Vanne départ liquide bridée",
@@ -391,7 +415,9 @@
               "filtre_air_voir": "Propre",
               "voyant_liquide_etat": "Bulles",
               "intensite_compresseur": {"value": 4.1, "unit": "A", "deviation": "low"}
-         }
+         },
+          "explication_consequences": "Une vanne partiellement fermée sur la ligne liquide (souvent en sortie de bouteille) crée une restriction, causant une prédétente (chute de pression et température) juste après elle. Les conséquences en aval sont similaires à un manque de charge.",
+         "explication_detection": "Symptômes de manque de charge en aval (BP basse, SH haute, bulles au voyant). La clé est de mesurer un delta T significatif aux bornes de la vanne suspectée (ici, implicitement en comparant T° sortie condenseur et T° entrée déshydrateur/EV, en supposant une vanne entre les deux)."
       },
        {
         "id": 14,"level": 3,"nom": "Prédétente sur la ligne liquide / Electrovanne ouvre mal",
@@ -413,7 +439,9 @@
               "voyant_liquide_etat": "Bulles (après EV)",
               "intensite_compresseur": {"value": 4.2, "unit": "A", "deviation": "low"},
               "intensite_electrovanne": {"value": 0.08, "unit": "A", "deviation": "normal"}
-         }
+         },
+          "explication_consequences": "L'électrovanne (EV) sur la ligne liquide n'ouvre pas complètement (problème mécanique interne, bobine OK). Cela crée une restriction majeure, une prédétente, et un manque de fluide pour l'évaporateur.",
+         "explication_detection": "Symptômes de manque de charge en aval (BP basse, SH haute, bulles au voyant *après* l'EV). La clé est le delta T important mesuré aux bornes de l'électrovanne elle-même. Vérifier l'intensité de la bobine (Niv 4) peut confirmer qu'elle est alimentée."
       },
       {
           "id": 15,"level": 3,"nom": "Evaporateur trop petit / Manque de débit d'air : filtre sale",
@@ -435,7 +463,9 @@
               "filtre_air_voir": "Très sale / Colmaté",
               "voyant_liquide_etat": "Clair",
                "intensite_compresseur": {"value": 4.5, "unit": "A", "deviation": "low"}
-          }
+          },
+          "explication_consequences": "Identique à la Panne 3. Le manque de débit d'air sur l'évaporateur cause une chute de BP et un givrage.",
+          "explication_detection": "Identique à la Panne 3. BP basse, SH basse, Delta T air évap faible, givre complet et filtre à air visiblement sale."
       },
       {
           "id": 16,"level": 3,"nom": "Evaporateur trop petit / Manque de débit d'air : autre raison",
@@ -459,7 +489,9 @@
               "intensite_compresseur": {"value": 4.3, "unit": "A", "deviation": "low"},
                "intensite_ventilo_evap": {"value": 0.3, "unit": "A", "deviation": "low"},
                "debit_air_evaporateur": {"value": 500, "unit": "m3/h", "deviation": "low"}
-          }
+          },
+          "explication_consequences": "Identique à la Panne 8. Le faible débit d'air sur l'évaporateur (dû au ventilateur) cause une chute de BP et un givrage.",
+          "explication_detection": "Identique à la Panne 8. BP basse, SH basse, Delta T air évap faible, givre. Le filtre est propre et la batterie aussi. Le problème vient du ventilateur (mesure débit/intensité Niv 4)."
       },
       {
           "id": 17,"level": 3,"nom": "Evaporateur trop petit / Batterie encrassée",
@@ -481,7 +513,9 @@
               "filtre_air_voir": "Propre",
               "voyant_liquide_etat": "Clair",
               "intensite_compresseur": {"value": 4.2, "unit": "A", "deviation": "low"}
-          }
+          },
+          "explication_consequences": "Identique à la Panne 7. L'encrassement de la batterie réduit l'échange thermique.",
+          "explication_detection": "Identique à la Panne 7. BP basse, SH basse, Delta T air faible. La clé est la visualisation de la batterie sale, alors que le filtre est propre."
       },
       {
           "id": 18,"level": 3,"nom": "Compresseur trop petit",
@@ -503,7 +537,9 @@
               "filtre_air_voir": "Propre",
               "voyant_liquide_etat": "Clair",
               "intensite_compresseur": {"value": 4.0, "unit": "A", "deviation": "low"}
-          }
+          },
+          "explication_consequences": "Identique à la Panne 10. Le compresseur n'assure plus un débit et une compression suffisants.",
+          "explication_detection": "Identique à la Panne 10. HP basse, BP haute, T° refoulement basse, SH haute, Intensité faible."
       },
       {
           "id": 19,"level": 3,"nom": "Excès de charge en fluide frigorigène ou incondensables",
@@ -525,7 +561,9 @@
               "filtre_air_voir": "Propre",
               "voyant_liquide_etat": "Clair (sauf si SR nul avec incondensables)",
               "intensite_compresseur": {"value": 5.8, "unit": "A", "deviation": "high"}
-          }
+          },
+           "explication_consequences": "Identique à la Panne 4. HP et BP augmentent, T° refoulement augmente, intensité augmente.",
+           "explication_detection": "Identique à la Panne 4. HP et BP élevées, T° refoulement haute, intensité haute. Vérifier SR pour distinguer excès de charge vs incondensables."
       },
       {
           "id": 20,"level": 3,"nom": "Condenseur trop petit / Batterie encrassée",
@@ -547,7 +585,9 @@
               "filtre_air_voir": "Propre",
               "voyant_liquide_etat": "Clair",
               "intensite_compresseur": {"value": 6.0, "unit": "A", "deviation": "high"}
-          }
+          },
+           "explication_consequences": "Identique à la Panne 5. Mauvais échange au condenseur => HP et T° refoulement très hautes.",
+          "explication_detection": "Identique à la Panne 5. HP très haute, T° refoulement très haute, SR bas, Delta T air condenseur faible. La clé est la visualisation du condenseur sale."
       },
       {
           "id": 21,"level": 3,"nom": "Condenseur trop petit / Manque de débit d'air",
@@ -571,394 +611,314 @@
               "intensite_compresseur": {"value": 5.9, "unit": "A", "deviation": "high"},
               "intensite_ventilo_cond": {"value": 0.25, "unit": "A", "deviation": "low"},
               "debit_air_condenseur": {"value": 600, "unit": "m3/h", "deviation": "low"}
-          }
+          },
+           "explication_consequences": "Identique à la Panne 9. Faible débit d'air condenseur => HP et T° refoulement très hautes.",
+          "explication_detection": "Identique à la Panne 9. HP très haute, T° refoulement très haute, SR bas, Delta T air condenseur faible. La clé est que le condenseur est propre, indiquant un problème de ventilateur."
       },
       {
         "id": 22,"level": 4,"nom": "Manque de charge en fluide frigorigène / Fuite sur compresseur",
         "mesures": {
-              "manometres_hp": { "value": 8, "unit": "bar", "deviation": "low" },
-              "manometres_bp": { "value": 1.5, "unit": "bar", "deviation": "low" },
-              "compresseur_temp_aspiration": { "value": 26, "unit": "°C", "deviation": "high" },
-              "compresseur_temp_refoulement": { "value": 55, "unit": "°C", "deviation": "low" },
-              "compresseur_controle_fuites": "Fuite détectée sur raccord/presse-étoupe",
-              "condenseur_voir": "Propre",
-              "evaporateur_voir": "Givre faible",
-              "filtre_air_voir": "Propre",
-              "voyant_liquide_etat": "Bulles",
-              "intensite_compresseur": {"value": 3.2, "unit": "A", "deviation": "low"},
-              "condenseur_controle_fuites": "OK",
-              "evaporateur_controle_fuites": "OK",
-               "deshydrateur_controle_fuites": "OK",
-               "electrovanne_controle_fuites": "OK",
-               "detendeur_controle_fuites": "OK"
-        }
+              "manometres_hp": { "value": 8, "unit": "bar", "deviation": "low" }, "manometres_bp": { "value": 1.5, "unit": "bar", "deviation": "low" },
+              "compresseur_temp_aspiration": { "value": 26, "unit": "°C", "deviation": "high" }, "compresseur_temp_refoulement": { "value": 55, "unit": "°C", "deviation": "low" },
+              "compresseur_controle_fuites": "Fuite détectée sur raccord/presse-étoupe", "condenseur_controle_fuites": "OK", "evaporateur_controle_fuites": "OK",
+              "condenseur_voir": "Propre", "evaporateur_voir": "Givre faible", "filtre_air_voir": "Propre", "voyant_liquide_etat": "Bulles",
+              "intensite_compresseur": {"value": 3.2, "unit": "A", "deviation": "low"}
+        },
+         "explication_consequences": "Manque de charge généralisé dû à une fuite localisée sur le compresseur.",
+         "explication_detection": "Symptômes classiques du manque de charge (HP/BP basses, SH haute, bulles...). La localisation précise de la fuite au compresseur nécessite un contrôle de fuites spécifique (Niv 4)."
       },
       {
         "id": 23,"level": 4,"nom": "Manque de charge en fluide frigorigène / Fuite sur condenseur",
         "mesures": {
-              "manometres_hp": { "value": 8.5, "unit": "bar", "deviation": "low" },
-              "manometres_bp": { "value": 1.8, "unit": "bar", "deviation": "low" },
-              "compresseur_temp_aspiration": { "value": 25, "unit": "°C", "deviation": "high" },
-               "compresseur_temp_refoulement": { "value": 58, "unit": "°C", "deviation": "low" },
-              "compresseur_controle_fuites": "OK",
-              "condenseur_controle_fuites": "Fuite détectée sur tube/collecteur",
-              "condenseur_voir": "Propre (traces d'huile possibles)",
-              "evaporateur_voir": "Givre faible",
-              "filtre_air_voir": "Propre",
-              "voyant_liquide_etat": "Bulles",
-              "intensite_compresseur": {"value": 3.3, "unit": "A", "deviation": "low"},
-               "evaporateur_controle_fuites": "OK",
-               "deshydrateur_controle_fuites": "OK",
-               "electrovanne_controle_fuites": "OK",
-               "detendeur_controle_fuites": "OK"
-        }
+              "manometres_hp": { "value": 8.5, "unit": "bar", "deviation": "low" }, "manometres_bp": { "value": 1.8, "unit": "bar", "deviation": "low" },
+              "compresseur_temp_aspiration": { "value": 25, "unit": "°C", "deviation": "high" }, "compresseur_temp_refoulement": { "value": 58, "unit": "°C", "deviation": "low" },
+              "compresseur_controle_fuites": "OK", "condenseur_controle_fuites": "Fuite détectée sur tube/collecteur", "evaporateur_controle_fuites": "OK",
+              "condenseur_voir": "Propre (traces d'huile possibles)", "evaporateur_voir": "Givre faible", "filtre_air_voir": "Propre", "voyant_liquide_etat": "Bulles",
+              "intensite_compresseur": {"value": 3.3, "unit": "A", "deviation": "low"}
+        },
+         "explication_consequences": "Manque de charge généralisé dû à une fuite localisée sur le condenseur.",
+         "explication_detection": "Symptômes classiques du manque de charge. La localisation précise de la fuite au condenseur nécessite un contrôle de fuites spécifique (Niv 4)."
       },
       {
         "id": 24,"level": 4,"nom": "Manque de charge en fluide frigorigène / Fuite sur évaporateur",
         "mesures": {
-               "manometres_hp": { "value": 9, "unit": "bar", "deviation": "low" },
-              "manometres_bp": { "value": 1.9, "unit": "bar", "deviation": "low" },
-              "compresseur_temp_aspiration": { "value": 24, "unit": "°C", "deviation": "high" },
-              "compresseur_temp_refoulement": { "value": 59, "unit": "°C", "deviation": "low" },
-              "compresseur_controle_fuites": "OK",
-              "condenseur_controle_fuites": "OK",
-              "condenseur_voir": "Propre",
-              "evaporateur_controle_fuites": "Fuite détectée sur tube/collecteur",
-              "evaporateur_voir": "Givre faible, traces d'huile possibles",
-               "filtre_air_voir": "Propre",
-              "voyant_liquide_etat": "Bulles",
-              "intensite_compresseur": {"value": 3.4, "unit": "A", "deviation": "low"},
-               "deshydrateur_controle_fuites": "OK",
-               "electrovanne_controle_fuites": "OK",
-               "detendeur_controle_fuites": "OK"
-        }
+               "manometres_hp": { "value": 9, "unit": "bar", "deviation": "low" }, "manometres_bp": { "value": 1.9, "unit": "bar", "deviation": "low" },
+              "compresseur_temp_aspiration": { "value": 24, "unit": "°C", "deviation": "high" }, "compresseur_temp_refoulement": { "value": 59, "unit": "°C", "deviation": "low" },
+              "compresseur_controle_fuites": "OK", "condenseur_controle_fuites": "OK", "evaporateur_controle_fuites": "Fuite détectée sur tube/collecteur",
+               "condenseur_voir": "Propre", "evaporateur_voir": "Givre faible, traces d'huile possibles", "filtre_air_voir": "Propre",
+              "voyant_liquide_etat": "Bulles", "intensite_compresseur": {"value": 3.4, "unit": "A", "deviation": "low"}
+        },
+         "explication_consequences": "Manque de charge généralisé dû à une fuite localisée sur l'évaporateur.",
+         "explication_detection": "Symptômes classiques du manque de charge. La localisation précise de la fuite à l'évaporateur nécessite un contrôle de fuites spécifique (Niv 4)."
       },
       {
         "id": 25,"level": 4,"nom": "Prédétente / Obstruction entre condenseur et bouteille",
         "mesures": {
-              "manometres_hp": { "value": 16, "unit": "bar", "deviation": "high" },
-              "manometres_bp": { "value": 1.5, "unit": "bar", "deviation": "low" },
-              "compresseur_temp_aspiration": { "value": 30, "unit": "°C", "deviation": "high" },
-               "compresseur_temp_refoulement": { "value": 85, "unit": "°C", "deviation": "high" },
-              "condenseur_temp_depart_liquide": { "value": 30, "unit": "°C", "deviation": "low" },
-               "condenseur_voir": "Propre",
-              "bouteille_liquide_temp_entree": { "value": 28, "unit": "°C", "deviation": "low" },
-              "bouteille_liquide_temp_sortie": { "value": 27.5, "unit": "°C", "deviation": "low" },
+              "manometres_hp": { "value": 16, "unit": "bar", "deviation": "high" }, "manometres_bp": { "value": 1.5, "unit": "bar", "deviation": "low" },
+              "compresseur_temp_aspiration": { "value": 30, "unit": "°C", "deviation": "high" }, "compresseur_temp_refoulement": { "value": 85, "unit": "°C", "deviation": "high" },
+              "condenseur_temp_depart_liquide": { "value": 30, "unit": "°C", "deviation": "low" }, "condenseur_voir": "Propre",
+              "bouteille_liquide_temp_entree": { "value": 28, "unit": "°C", "deviation": "low" }, "bouteille_liquide_temp_sortie": { "value": 27.5, "unit": "°C", "deviation": "low" },
                "bouteille_liquide_delta_t": { "value": 0.5, "unit": "K" },
-               "bouteille_liquide_controle_fuites": "OK",
-               "deshydrateur_temp_entree": { "value": 27.5, "unit": "°C" },
-              "deshydrateur_temp_sortie": { "value": 27.5, "unit": "°C" },
-              "deshydrateur_delta_t": { "value": 0, "unit": "K" },
-              "voyant_liquide_etat": "Bulles",
-              "intensite_compresseur": {"value": 5.5, "unit": "A", "deviation": "high"}
-         }
+              "voyant_liquide_etat": "Bulles", "intensite_compresseur": {"value": 5.5, "unit": "A", "deviation": "high"}
+         },
+          "explication_consequences": "Une obstruction (ex: limaille, tube pincé) entre la sortie condenseur et l'entrée bouteille liquide bloque l'écoulement. Le liquide s'accumule en amont (HP monte), et manque en aval (prédétente, BP basse, SH haute).",
+         "explication_detection": "HP haute, BP basse, SH haute. La température du liquide chute brutalement *entre* la sortie du condenseur et l'entrée de la bouteille (là où se situe le bouchon). Le voyant liquide (s'il est après la bouteille) montrera des bulles."
       },
       {
         "id": 26,"level": 4,"nom": "Prédétente / Flash gas entre déshydrateur et électrovanne",
         "mesures": {
-              "manometres_hp": { "value": 13, "unit": "bar", "deviation": "low" },
-              "manometres_bp": { "value": 1.8, "unit": "bar", "deviation": "low" },
-              "compresseur_temp_aspiration": { "value": 28, "unit": "°C", "deviation": "high" },
-              "compresseur_temp_refoulement": { "value": 70, "unit": "°C", "deviation": "low" },
-              "condenseur_temp_depart_liquide": { "value": 37, "unit": "°C" },
-              "deshydrateur_temp_entree": { "value": 37, "unit": "°C" },
-              "deshydrateur_temp_sortie": { "value": 37, "unit": "°C" },
-              "deshydrateur_delta_t": { "value": 0, "unit": "K" },
-              "electrovanne_temp_entree": { "value": 37, "unit": "°C" },
-              "electrovanne_temp_sortie": { "value": 37, "unit": "°C" },
-              "electrovanne_delta_t": { "value": 0, "unit": "K" },
+              "manometres_hp": { "value": 13, "unit": "bar", "deviation": "low" }, "manometres_bp": { "value": 1.8, "unit": "bar", "deviation": "low" },
+              "compresseur_temp_aspiration": { "value": 28, "unit": "°C", "deviation": "high" }, "compresseur_temp_refoulement": { "value": 70, "unit": "°C", "deviation": "low" },
+              "deshydrateur_delta_t": { "value": 0, "unit": "K" }, "electrovanne_delta_t": { "value": 0, "unit": "K" },
               "voyant_liquide_etat": "Flash gas / Grosses bulles",
               "intensite_compresseur": {"value": 4.1, "unit": "A", "deviation": "low"}
-         }
+         },
+          "explication_consequences": "Le 'Flash gas' se produit quand le liquide se vaporise partiellement *avant* le détendeur, généralement à cause d'une perte de charge ou d'un gain de chaleur sur la ligne liquide. Cela réduit la quantité de liquide arrivant au détendeur, diminuant l'efficacité.",
+         "explication_detection": "Le signe principal est la présence de 'flash gas' (grosses bulles rapides, aspect laiteux) dans le voyant liquide. Les pressions et températures peuvent ressembler à un léger manque de charge (BP basse, SH haute). Il n'y a pas de delta T anormal sur les composants de la ligne liquide."
       },
       {
         "id": 27,"level": 4,"nom": "Prédétente / Cheminée de l'électrovanne voilée",
         "mesures": {
-               "manometres_hp": { "value": 13, "unit": "bar", "deviation": "low" },
-              "manometres_bp": { "value": 1.9, "unit": "bar", "deviation": "low" },
-              "compresseur_temp_aspiration": { "value": 26, "unit": "°C", "deviation": "high" },
-              "compresseur_temp_refoulement": { "value": 70, "unit": "°C", "deviation": "low" },
-              "condenseur_temp_depart_liquide": { "value": 37, "unit": "°C" },
-              "deshydrateur_temp_entree": { "value": 37, "unit": "°C" },
-              "deshydrateur_temp_sortie": { "value": 37, "unit": "°C" },
-              "deshydrateur_delta_t": { "value": 0, "unit": "K" },
-              "electrovanne_temp_entree": { "value": 37, "unit": "°C" },
-              "electrovanne_temp_sortie": { "value": 31, "unit": "°C", "deviation":"low" },
-              "electrovanne_delta_t": { "value": 6, "unit": "K", "deviation": "high" },
+               "manometres_hp": { "value": 13, "unit": "bar", "deviation": "low" }, "manometres_bp": { "value": 1.9, "unit": "bar", "deviation": "low" },
+              "compresseur_temp_aspiration": { "value": 26, "unit": "°C", "deviation": "high" }, "compresseur_temp_refoulement": { "value": 70, "unit": "°C", "deviation": "low" },
+              "deshydrateur_delta_t": { "value": 0, "unit": "K" }, "electrovanne_delta_t": { "value": 6, "unit": "K", "deviation": "high" },
               "electrovanne_controle_mecanique_complet": "Cheminée légèrement voilée, passage réduit",
-              "voyant_liquide_etat": "Bulles (après EV)",
-              "intensite_compresseur": {"value": 4.2, "unit": "A", "deviation": "low"},
+              "voyant_liquide_etat": "Bulles (après EV)", "intensite_compresseur": {"value": 4.2, "unit": "A", "deviation": "low"},
               "intensite_electrovanne": {"value": 0.1, "unit": "A", "deviation": "normal"}
-         }
+         },
+         "explication_consequences": "Identique à Panne 14. L'EV restreint le débit.",
+         "explication_detection": "Identique à Panne 14. Delta T élevé sur l'EV. Le contrôle mécanique (Niv 4) confirme le problème interne."
       },
       {
         "id": 28,"level": 4,"nom": "Détendeur trop petit / Détendeur mal réglé, trop fermé",
         "mesures": {
-              "manometres_hp": { "value": 13.5, "unit": "bar" },
-              "manometres_bp": { "value": 1.5, "unit": "bar", "deviation": "low" },
-              "compresseur_temp_aspiration": { "value": 32, "unit": "°C", "deviation": "high" },
-              "compresseur_temp_refoulement": { "value": 72, "unit": "°C" },
-              "detendeur_temp_bulbe": { "value": 28, "unit": "°C", "deviation": "high" },
-              "detendeur_controler_tige_reglage": "Vis de réglage très vissée (fermée)",
-              "voyant_liquide_etat": "Clair",
-              "intensite_compresseur": {"value": 4.3, "unit": "A", "deviation": "low"}
-         }
+              "manometres_hp": { "value": 13.5, "unit": "bar" }, "manometres_bp": { "value": 1.5, "unit": "bar", "deviation": "low" },
+              "compresseur_temp_aspiration": { "value": 32, "unit": "°C", "deviation": "high" }, "compresseur_temp_refoulement": { "value": 72, "unit": "°C" },
+              "detendeur_temp_bulbe": { "value": 28, "unit": "°C", "deviation": "high" }, "detendeur_controler_tige_reglage": "Vis de réglage très vissée (fermée)",
+              "voyant_liquide_etat": "Clair", "intensite_compresseur": {"value": 4.3, "unit": "A", "deviation": "low"}
+         },
+          "explication_consequences": "Un détendeur thermostatique (TXV) réglé trop fermé (vis de surchauffe trop vissée) limite excessivement le débit de réfrigérant vers l'évaporateur, même si le besoin de froid est là. Cela cause une BP basse et une surchauffe très élevée.",
+         "explication_detection": "Symptômes de manque de fluide à l'évaporateur (BP basse, SH très haute). Le sous-refroidissement est normal ou élevé. La clé est de vérifier la vis de réglage du TXV (Niv 4) et de la trouver anormalement fermée."
       },
        {
         "id": 29,"level": 4,"nom": "Détendeur trop petit / Buse du détendeur trop petite",
         "mesures": {
-              "manometres_hp": { "value": 13.5, "unit": "bar" },
-              "manometres_bp": { "value": 1.6, "unit": "bar", "deviation": "low" },
-              "compresseur_temp_aspiration": { "value": 31, "unit": "°C", "deviation": "high" },
-              "compresseur_temp_refoulement": { "value": 71, "unit": "°C" },
-              "detendeur_temp_bulbe": { "value": 27, "unit": "°C", "deviation": "high" },
-              "detendeur_controler_tige_reglage": "Réglage normal",
-              "detendeur_voir_tableau_puissance": "Puissance frigorifique nominale inférieure à celle requise",
-               "detendeur_controle_mecanique_complet": "Buse de taille X (trop petite)",
-              "voyant_liquide_etat": "Clair",
-              "intensite_compresseur": {"value": 4.2, "unit": "A", "deviation": "low"}
-         }
+              "manometres_hp": { "value": 13.5, "unit": "bar" }, "manometres_bp": { "value": 1.6, "unit": "bar", "deviation": "low" },
+              "compresseur_temp_aspiration": { "value": 31, "unit": "°C", "deviation": "high" }, "compresseur_temp_refoulement": { "value": 71, "unit": "°C" },
+              "detendeur_temp_bulbe": { "value": 27, "unit": "°C", "deviation": "high" }, "detendeur_controler_tige_reglage": "Réglage normal",
+              "detendeur_voir_tableau_puissance": "Puissance frigorifique nominale inférieure à celle requise", "detendeur_controle_mecanique_complet": "Buse de taille X (trop petite)",
+              "voyant_liquide_etat": "Clair", "intensite_compresseur": {"value": 4.2, "unit": "A", "deviation": "low"}
+         },
+          "explication_consequences": "Le détendeur installé a une capacité (liée à la taille de sa buse interne) inférieure à la puissance de l'évaporateur ou du compresseur. Il ne peut physiquement pas laisser passer assez de fluide, même s'il est bien réglé et fonctionne correctement.",
+         "explication_detection": "Symptômes de manque de fluide à l'évaporateur (BP basse, SH très haute) persistants même après avoir vérifié/corrigé le réglage de surchauffe. La consultation des tables de puissance du détendeur (Niv 4) ou le démontage pour vérifier la buse confirment le sous-dimensionnement."
       },
       {
         "id": 30,"level": 4,"nom": "Détendeur trop petit / Filtre du détendeur colmaté",
          "mesures": {
-              "manometres_hp": { "value": 13, "unit": "bar", "deviation": "low" },
-              "manometres_bp": { "value": 1.4, "unit": "bar", "deviation": "low" },
-              "compresseur_temp_aspiration": { "value": 33, "unit": "°C", "deviation": "high" },
-              "compresseur_temp_refoulement": { "value": 73, "unit": "°C" },
+              "manometres_hp": { "value": 13, "unit": "bar", "deviation": "low" }, "manometres_bp": { "value": 1.4, "unit": "bar", "deviation": "low" },
+              "compresseur_temp_aspiration": { "value": 33, "unit": "°C", "deviation": "high" }, "compresseur_temp_refoulement": { "value": 73, "unit": "°C" },
               "detendeur_temp_bulbe": { "value": 29, "unit": "°C", "deviation": "high" },
               "detendeur_controle_mecanique_complet": "Filtre conique d'entrée encrassé/colmaté",
-              "voyant_liquide_etat": "Clair (avant détendeur)",
-              "intensite_compresseur": {"value": 4.0, "unit": "A", "deviation": "low"}
-         }
+              "voyant_liquide_etat": "Clair (avant détendeur)", "intensite_compresseur": {"value": 4.0, "unit": "A", "deviation": "low"}
+         },
+         "explication_consequences": "Des impuretés (limaille, débris) ont colmaté le petit filtre situé à l'entrée du corps du détendeur thermostatique. Cela restreint le débit de fluide comme une obstruction.",
+         "explication_detection": "Symptômes de manque de fluide (BP basse, SH très haute). Le sous-refroidissement est bon, le voyant est clair avant le détendeur. Suspecter le filtre si d'autres causes (manque de charge, réglage) sont écartées. Le contrôle mécanique (Niv 4) confirme le filtre bouché."
       },
        {
         "id": 31,"level": 4,"nom": "Détendeur trop petit / Train thermostatique prévu pour le R12",
         "mesures": {
-              "manometres_hp": { "value": 13.5, "unit": "bar" },
-              "manometres_bp": { "value": 1.7, "unit": "bar", "deviation": "low" },
-              "compresseur_temp_aspiration": { "value": 30, "unit": "°C", "deviation": "high" },
-               "compresseur_temp_refoulement": { "value": 70, "unit": "°C" },
-               "detendeur_temp_bulbe": { "value": 26, "unit": "°C", "deviation": "high" },
-               "detendeur_voir_train_thermostatique": "Marquage indiquant R12 (ou charge inconnue)",
-               "detendeur_controler_tige_reglage": "Réglage normal",
-              "voyant_liquide_etat": "Clair",
-              "intensite_compresseur": {"value": 4.2, "unit": "A", "deviation": "low"}
-         }
+              "manometres_hp": { "value": 13.5, "unit": "bar" }, "manometres_bp": { "value": 1.7, "unit": "bar", "deviation": "low" },
+              "compresseur_temp_aspiration": { "value": 30, "unit": "°C", "deviation": "high" }, "compresseur_temp_refoulement": { "value": 70, "unit": "°C" },
+               "detendeur_temp_bulbe": { "value": 26, "unit": "°C", "deviation": "high" }, "detendeur_voir_train_thermostatique": "Marquage indiquant R12 (ou charge inconnue)",
+               "detendeur_controler_tige_reglage": "Réglage normal", "voyant_liquide_etat": "Clair", "intensite_compresseur": {"value": 4.2, "unit": "A", "deviation": "low"}
+         },
+          "explication_consequences": "Le train thermostatique (bulbe + capillaire + diaphragme) contient une charge calibrée pour un fluide spécifique (ici R12). Si utilisé avec un autre fluide (R22), la relation pression/température du bulbe est incorrecte, menant à une mauvaise régulation de la surchauffe (ici, il maintient une SH trop élevée pour du R22).",
+         "explication_detection": "Surchauffe anormalement élevée et stable, malgré un réglage apparemment correct. La vérification du marquage sur le train thermostatique (Niv 4) révèle l'incompatibilité de fluide."
       },
       {
         "id": 32,"level": 4,"nom": "Détendeur trop petit / Point MOP du train thermostatique trop faible",
         "mesures": {
-               "manometres_hp": { "value": 13.5, "unit": "bar" },
-              "manometres_bp": { "value": 2.0, "unit": "bar", "deviation": "low" },
-              "compresseur_temp_aspiration": { "value": 28, "unit": "°C", "deviation": "high" },
-              "compresseur_temp_refoulement": { "value": 68, "unit": "°C" },
-               "detendeur_temp_bulbe": { "value": 25, "unit": "°C", "deviation": "high" },
-              "detendeur_voir_train_thermostatique": "Marquage indiquant MOP X°C (trop bas pour l'application)",
-              "voyant_liquide_etat": "Clair",
-              "intensite_compresseur": {"value": 4.3, "unit": "A", "deviation": "low"}
-         }
+               "manometres_hp": { "value": 13.5, "unit": "bar" }, "manometres_bp": { "value": 2.0, "unit": "bar", "deviation": "low" },
+              "compresseur_temp_aspiration": { "value": 28, "unit": "°C", "deviation": "high" }, "compresseur_temp_refoulement": { "value": 68, "unit": "°C" },
+               "detendeur_temp_bulbe": { "value": 25, "unit": "°C", "deviation": "high" }, "detendeur_voir_train_thermostatique": "Marquage indiquant MOP X°C (trop bas)",
+              "voyant_liquide_etat": "Clair", "intensite_compresseur": {"value": 4.3, "unit": "A", "deviation": "low"}
+         },
+         "explication_consequences": "Un détendeur MOP (Maximum Operating Pressure) limite la pression d'évaporation maximale pour protéger le compresseur au démarrage ou en cas de forte charge. Si le point MOP est réglé trop bas par rapport aux conditions normales, le détendeur fermera prématurément, limitant la BP et causant une surchauffe élevée.",
+         "explication_detection": "La BP ne monte pas au-dessus d'une certaine valeur (le point MOP), même si la charge thermique est élevée. La surchauffe est très haute. La vérification du train thermostatique (Niv 4) indique la présence et la valeur du point MOP."
       },
       {
         "id": 33,"level": 4,"nom": "Evaporateur trop petit / Ventilateur tourne à l'envers",
         "mesures": {
-              "manometres_hp": { "value": 12.5, "unit": "bar", "deviation": "low" },
-              "manometres_bp": { "value": 2.1, "unit": "bar", "deviation": "low" },
-              "compresseur_temp_aspiration": { "value": 11, "unit": "°C", "deviation": "low" },
-               "compresseur_temp_refoulement": { "value": 64, "unit": "°C" },
-              "evaporateur_voir": "Givre important",
-              "filtre_air_voir": "Propre",
-               "evaporateur_temp_entree_air": { "value": 25, "unit": "°C" },
-               "evaporateur_temp_sortie_air": { "value": 23.5, "unit": "°C", "deviation": "low" },
-              "debit_air_evaporateur": {"value": 200, "unit": "m3/h", "deviation": "low"},
-              "ventilo_evaporateur_controle_mecanique_complet": "Sens de rotation inversé",
-               "intensite_ventilo_evap": {"value": 0.5, "unit": "A", "deviation": "normal"},
+              "manometres_hp": { "value": 12.5, "unit": "bar", "deviation": "low" }, "manometres_bp": { "value": 2.1, "unit": "bar", "deviation": "low" },
+              "compresseur_temp_aspiration": { "value": 11, "unit": "°C", "deviation": "low" }, "compresseur_temp_refoulement": { "value": 64, "unit": "°C" },
+              "evaporateur_voir": "Givre important", "filtre_air_voir": "Propre", "evaporateur_temp_entree_air": { "value": 25, "unit": "°C" },
+               "evaporateur_temp_sortie_air": { "value": 23.5, "unit": "°C", "deviation": "low" }, "debit_air_evaporateur": {"value": 200, "unit": "m3/h", "deviation": "low"},
+              "ventilo_evaporateur_controle_mecanique_complet": "Sens de rotation inversé", "intensite_ventilo_evap": {"value": 0.5, "unit": "A", "deviation": "normal"},
                "intensite_compresseur": {"value": 4.2, "unit": "A", "deviation": "low"}
-         }
+         },
+         "explication_consequences": "Un ventilateur tournant à l'envers brasse très peu d'air ou de manière inefficace à travers l'évaporateur. Cela cause les mêmes symptômes qu'un manque sévère de débit d'air (BP basse, SH basse, givre).",
+         "explication_detection": "Symptômes de manque de débit d'air évaporateur (BP/SH basses, givre). La clé est l'observation directe du sens de rotation du ventilateur ou la mesure d'un débit d'air extrêmement faible (Niv 4)."
       },
        {
         "id": 34,"level": 4,"nom": "Evaporateur trop petit / Courroie ventilateur à retendre",
         "mesures": {
-               "manometres_hp": { "value": 12.8, "unit": "bar", "deviation": "low" },
-              "manometres_bp": { "value": 2.3, "unit": "bar", "deviation": "low" },
-               "compresseur_temp_aspiration": { "value": 12, "unit": "°C", "deviation": "low" },
-               "compresseur_temp_refoulement": { "value": 66, "unit": "°C" },
-               "evaporateur_voir": "Givre",
-               "filtre_air_voir": "Propre",
-               "evaporateur_temp_entree_air": { "value": 25, "unit": "°C" },
-               "evaporateur_temp_sortie_air": { "value": 23, "unit": "°C", "deviation": "low" },
-               "debit_air_evaporateur": {"value": 450, "unit": "m3/h", "deviation": "low"},
-               "ventilo_evaporateur_controle_mecanique_complet": "Courroie détendue, patine",
-               "intensite_ventilo_evap": {"value": 0.6, "unit": "A", "deviation": "normal"},
+               "manometres_hp": { "value": 12.8, "unit": "bar", "deviation": "low" }, "manometres_bp": { "value": 2.3, "unit": "bar", "deviation": "low" },
+               "compresseur_temp_aspiration": { "value": 12, "unit": "°C", "deviation": "low" }, "compresseur_temp_refoulement": { "value": 66, "unit": "°C" },
+               "evaporateur_voir": "Givre", "filtre_air_voir": "Propre", "evaporateur_temp_entree_air": { "value": 25, "unit": "°C" },
+               "evaporateur_temp_sortie_air": { "value": 23, "unit": "°C", "deviation": "low" }, "debit_air_evaporateur": {"value": 450, "unit": "m3/h", "deviation": "low"},
+               "ventilo_evaporateur_controle_mecanique_complet": "Courroie détendue, patine", "intensite_ventilo_evap": {"value": 0.6, "unit": "A", "deviation": "normal"},
                "intensite_compresseur": {"value": 4.4, "unit": "A", "deviation": "low"}
-         }
+         },
+          "explication_consequences": "Une courroie détendue patine sur les poulies, le ventilateur tourne moins vite que prévu, réduisant le débit d'air sur l'évaporateur. Conséquences : BP basse, SH basse, givre.",
+         "explication_detection": "Symptômes de manque de débit d'air évaporateur. Le contrôle mécanique du ventilateur (Niv 4) révèle une courroie détendue (bruit de patinage possible)."
       },
        {
         "id": 35,"level": 4,"nom": "Evaporateur trop petit / Courroie ventilateur à remplacer",
         "mesures": {
-               "manometres_hp": { "value": 12.5, "unit": "bar", "deviation": "low" },
-              "manometres_bp": { "value": 2.0, "unit": "bar", "deviation": "low" },
-              "compresseur_temp_aspiration": { "value": 10, "unit": "°C", "deviation": "low" },
-               "compresseur_temp_refoulement": { "value": 62, "unit": "°C" },
-              "evaporateur_voir": "Givre important",
-              "filtre_air_voir": "Propre",
-              "evaporateur_temp_entree_air": { "value": 25, "unit": "°C" },
-               "evaporateur_temp_sortie_air": { "value": 24, "unit": "°C", "deviation": "low" },
-              "debit_air_evaporateur": {"value": 300, "unit": "m3/h", "deviation": "low"},
-              "ventilo_evaporateur_controle_mecanique_complet": "Courroie cassée ou très usée",
-               "intensite_ventilo_evap": {"value": 0.1, "unit": "A", "deviation": "low"},
+               "manometres_hp": { "value": 12.5, "unit": "bar", "deviation": "low" }, "manometres_bp": { "value": 2.0, "unit": "bar", "deviation": "low" },
+              "compresseur_temp_aspiration": { "value": 10, "unit": "°C", "deviation": "low" }, "compresseur_temp_refoulement": { "value": 62, "unit": "°C" },
+              "evaporateur_voir": "Givre important", "filtre_air_voir": "Propre", "evaporateur_temp_entree_air": { "value": 25, "unit": "°C" },
+               "evaporateur_temp_sortie_air": { "value": 24, "unit": "°C", "deviation": "low" }, "debit_air_evaporateur": {"value": 300, "unit": "m3/h", "deviation": "low"},
+              "ventilo_evaporateur_controle_mecanique_complet": "Courroie cassée ou très usée", "intensite_ventilo_evap": {"value": 0.1, "unit": "A", "deviation": "low"},
               "intensite_compresseur": {"value": 4.1, "unit": "A", "deviation": "low"}
-         }
+         },
+          "explication_consequences": "Courroie cassée = arrêt du ventilateur = débit d'air quasi nul. L'évaporateur givre très rapidement, la BP chute fortement, la SH devient très basse.",
+         "explication_detection": "Manque de froid sévère, BP très basse, SH très basse, givre massif. Absence de bruit du ventilateur évaporateur ou bruit anormal. Le contrôle mécanique (Niv 4) confirme la courroie cassée/absente. L'intensité du moteur de ventilateur est nulle ou très faible."
       },
        {
         "id": 36,"level": 4,"nom": "Evaporateur trop petit / Poulie variable du moteur trop ouverte",
         "mesures": {
-              "manometres_hp": { "value": 13, "unit": "bar", "deviation": "low" },
-              "manometres_bp": { "value": 2.4, "unit": "bar", "deviation": "low" },
-              "compresseur_temp_aspiration": { "value": 13, "unit": "°C", "deviation": "low" },
-              "compresseur_temp_refoulement": { "value": 67, "unit": "°C" },
-               "evaporateur_voir": "Givre léger",
-                "filtre_air_voir": "Propre",
-               "evaporateur_temp_entree_air": { "value": 25, "unit": "°C" },
-               "evaporateur_temp_sortie_air": { "value": 22.5, "unit": "°C", "deviation": "low" },
-               "debit_air_evaporateur": {"value": 600, "unit": "m3/h", "deviation": "low"},
+              "manometres_hp": { "value": 13, "unit": "bar", "deviation": "low" }, "manometres_bp": { "value": 2.4, "unit": "bar", "deviation": "low" },
+              "compresseur_temp_aspiration": { "value": 13, "unit": "°C", "deviation": "low" }, "compresseur_temp_refoulement": { "value": 67, "unit": "°C" },
+               "evaporateur_voir": "Givre léger", "filtre_air_voir": "Propre", "evaporateur_temp_entree_air": { "value": 25, "unit": "°C" },
+               "evaporateur_temp_sortie_air": { "value": 22.5, "unit": "°C", "deviation": "low" }, "debit_air_evaporateur": {"value": 600, "unit": "m3/h", "deviation": "low"},
                "ventilo_evaporateur_controle_mecanique_complet": "Poulie variable réglée pour vitesse basse",
               "intensite_compresseur": {"value": 4.5, "unit": "A", "deviation": "low"}
-         }
+         },
+          "explication_consequences": "Sur certains systèmes, une poulie moteur à diamètre variable permet d'ajuster la vitesse du ventilateur. Si elle est réglée trop 'ouverte', le diamètre effectif est petit, la vitesse du ventilateur est réduite, le débit d'air diminue. Conséquences : BP/SH basses, givre possible.",
+         "explication_detection": "Symptômes de manque de débit d'air évaporateur. Le contrôle mécanique (Niv 4) révèle la présence et le réglage d'une poulie variable sur le moteur du ventilateur."
       },
        {
         "id": 37,"level": 4,"nom": "Evaporateur trop petit / Moteur 60Hz sur un réseau 50 Hz",
         "mesures": {
-              "manometres_hp": { "value": 13.2, "unit": "bar", "deviation": "low" },
-              "manometres_bp": { "value": 2.5, "unit": "bar", "deviation": "low" },
-               "compresseur_temp_aspiration": { "value": 14, "unit": "°C", "deviation": "low" },
-               "compresseur_temp_refoulement": { "value": 68, "unit": "°C" },
-               "evaporateur_voir": "Givre léger",
-                "filtre_air_voir": "Propre",
-                "evaporateur_temp_entree_air": { "value": 25, "unit": "°C" },
-               "evaporateur_temp_sortie_air": { "value": 22, "unit": "°C", "deviation": "low" },
-               "debit_air_evaporateur": {"value": 750, "unit": "m3/h", "deviation": "low"},
-               "ventilo_evaporateur_voir_plaque_signaletique": "Indique 60Hz",
-               "intensite_ventilo_evap": {"value": 0.7, "unit": "A", "deviation": "high"},
+              "manometres_hp": { "value": 13.2, "unit": "bar", "deviation": "low" }, "manometres_bp": { "value": 2.5, "unit": "bar", "deviation": "low" },
+               "compresseur_temp_aspiration": { "value": 14, "unit": "°C", "deviation": "low" }, "compresseur_temp_refoulement": { "value": 68, "unit": "°C" },
+               "evaporateur_voir": "Givre léger", "filtre_air_voir": "Propre", "evaporateur_temp_entree_air": { "value": 25, "unit": "°C" },
+               "evaporateur_temp_sortie_air": { "value": 22, "unit": "°C", "deviation": "low" }, "debit_air_evaporateur": {"value": 750, "unit": "m3/h", "deviation": "low"},
+               "ventilo_evaporateur_voir_plaque_signaletique": "Indique 60Hz", "intensite_ventilo_evap": {"value": 0.7, "unit": "A", "deviation": "high"},
                "intensite_compresseur": {"value": 4.6, "unit": "A", "deviation": "low"}
-         }
+         },
+         "explication_consequences": "Un moteur conçu pour 60Hz tournera environ 20% moins vite sur un réseau 50Hz. Cela réduit le débit d'air du ventilateur qu'il entraîne, causant les symptômes d'un manque de débit d'air (BP/SH basses, givre). Le moteur peut aussi surchauffer et consommer plus.",
+         "explication_detection": "Symptômes de manque de débit d'air évaporateur. La vérification de la plaque signalétique du moteur de ventilateur (Niv 4) révèle qu'il est prévu pour 60Hz alors que le réseau est en 50Hz. L'intensité du moteur peut être élevée."
       },
        {
         "id": 38,"level": 4,"nom": "Excès de charge ou incondensables / Excès de charge en fluide frigorigène",
          "mesures": {
-              "manometres_hp": { "value": 18, "unit": "bar", "deviation": "high" },
-              "manometres_bp": { "value": 5, "unit": "bar", "deviation": "high" },
-              "compresseur_temp_aspiration": { "value": 10, "unit": "°C", "deviation": "low" },
-              "compresseur_temp_refoulement": { "value": 90, "unit": "°C", "deviation": "high" },
+              "manometres_hp": { "value": 18, "unit": "bar", "deviation": "high" }, "manometres_bp": { "value": 5, "unit": "bar", "deviation": "high" },
+              "compresseur_temp_aspiration": { "value": 10, "unit": "°C", "deviation": "low" }, "compresseur_temp_refoulement": { "value": 90, "unit": "°C", "deviation": "high" },
                "condenseur_temp_depart_liquide": { "value": 40, "unit": "°C" },
                "bouteille_liquide_test_incondensables": "Négatif",
-              "voyant_liquide_etat": "Clair",
-              "intensite_compresseur": {"value": 5.8, "unit": "A", "deviation": "high"}
-          }
+              "voyant_liquide_etat": "Clair", "intensite_compresseur": {"value": 5.8, "unit": "A", "deviation": "high"}
+          },
+           "explication_consequences": "Trop de fluide dans le circuit. Le liquide s'accumule dans le condenseur et la bouteille, réduisant la surface d'échange disponible pour la condensation et augmentant la HP. La BP monte aussi. Le sous-refroidissement est élevé.",
+          "explication_detection": "HP et BP élevées. SR élevé. T° refoulement haute. Intensité compresseur haute. Le test d'incondensables (Niv 4) est négatif."
       },
        {
         "id": 39,"level": 4,"nom": "Excès de charge ou incondensables / Incondensables en grosse quantité",
          "mesures": {
-              "manometres_hp": { "value": 22, "unit": "bar", "deviation": "high" },
-              "manometres_bp": { "value": 4.8, "unit": "bar", "deviation": "high" },
-              "compresseur_temp_aspiration": { "value": 12, "unit": "°C", "deviation": "low" },
-              "compresseur_temp_refoulement": { "value": 110, "unit": "°C", "deviation": "high" },
+              "manometres_hp": { "value": 22, "unit": "bar", "deviation": "high" }, "manometres_bp": { "value": 4.8, "unit": "bar", "deviation": "high" },
+              "compresseur_temp_aspiration": { "value": 12, "unit": "°C", "deviation": "low" }, "compresseur_temp_refoulement": { "value": 110, "unit": "°C", "deviation": "high" },
               "condenseur_temp_depart_liquide": { "value": 42, "unit": "°C" },
               "bouteille_liquide_test_incondensables": "Positif (purge nécessaire)",
-              "voyant_liquide_etat": "Clair ou bulles fines",
-              "intensite_compresseur": {"value": 6.1, "unit": "A", "deviation": "high"}
-          }
+              "voyant_liquide_etat": "Clair ou bulles fines", "intensite_compresseur": {"value": 6.1, "unit": "A", "deviation": "high"}
+          },
+          "explication_consequences": "Présence d'air ou autres gaz non condensables dans le circuit. Ces gaz s'accumulent dans le condenseur, occupant du volume et augmentant la pression totale (HP) bien au-delà de la pression de condensation normale du fluide. Cela réduit l'efficacité.",
+         "explication_detection": "HP très élevée, T° refoulement très élevée. BP peut être haute aussi. Le SR est souvent faible ou normal (pas élevé comme avec un excès de charge). Le test d'incondensables (Niv 4) est positif."
       },
        {
         "id": 40,"level": 4,"nom": "Condenseur trop petit / Ventilateur tourne à l'envers",
         "mesures": {
-               "manometres_hp": { "value": 21, "unit": "bar", "deviation": "high" },
-              "manometres_bp": { "value": 4.6, "unit": "bar", "deviation": "high" },
-              "compresseur_temp_aspiration": { "value": 19, "unit": "°C", "deviation": "high" },
-              "compresseur_temp_refoulement": { "value": 105, "unit": "°C", "deviation": "high" },
-              "condenseur_voir": "Propre",
-              "condenseur_temp_sortie_air": { "value": 28, "unit": "°C", "deviation": "low" },
+               "manometres_hp": { "value": 21, "unit": "bar", "deviation": "high" }, "manometres_bp": { "value": 4.6, "unit": "bar", "deviation": "high" },
+              "compresseur_temp_aspiration": { "value": 19, "unit": "°C", "deviation": "high" }, "compresseur_temp_refoulement": { "value": 105, "unit": "°C", "deviation": "high" },
+              "condenseur_voir": "Propre", "condenseur_temp_sortie_air": { "value": 28, "unit": "°C", "deviation": "low" },
               "debit_air_condenseur": {"value": 300, "unit": "m3/h", "deviation": "low"},
                "ventilo_condenseur_controle_mecanique_complet": "Sens de rotation inversé",
               "intensite_compresseur": {"value": 6.0, "unit": "A", "deviation": "high"}
-         }
+         },
+          "explication_consequences": "Ventilateur condenseur tournant à l'envers = débit d'air très faible = mauvais refroidissement du condenseur. HP et T° refoulement très hautes.",
+         "explication_detection": "Symptômes de manque de débit d'air condenseur (HP haute, SR bas, Delta T air faible). Le condenseur est propre. Le contrôle mécanique (Niv 4) ou l'observation directe révèle le sens de rotation inversé."
       },
        {
         "id": 41,"level": 4,"nom": "Condenseur trop petit / Moteur couplé en étoile au lieu de triangle",
         "mesures": {
-               "manometres_hp": { "value": 19, "unit": "bar", "deviation": "high" },
-              "manometres_bp": { "value": 4.4, "unit": "bar", "deviation": "normal" },
-              "compresseur_temp_aspiration": { "value": 18, "unit": "°C", "deviation": "high" },
-              "compresseur_temp_refoulement": { "value": 98, "unit": "°C", "deviation": "high" },
-              "condenseur_voir": "Propre",
-              "condenseur_temp_sortie_air": { "value": 30, "unit": "°C", "deviation": "low" },
+               "manometres_hp": { "value": 19, "unit": "bar", "deviation": "high" }, "manometres_bp": { "value": 4.4, "unit": "bar", "deviation": "normal" },
+              "compresseur_temp_aspiration": { "value": 18, "unit": "°C", "deviation": "high" }, "compresseur_temp_refoulement": { "value": 98, "unit": "°C", "deviation": "high" },
+              "condenseur_voir": "Propre", "condenseur_temp_sortie_air": { "value": 30, "unit": "°C", "deviation": "low" },
               "debit_air_condenseur": {"value": 500, "unit": "m3/h", "deviation": "low"},
-              "ventilo_condenseur_voir_bornier_moteur": "Couplage Étoile (Y)",
-               "ventilo_condenseur_voir_plaque_signaletique": "Indique couplage Triangle (D) pour tension réseau",
+              "ventilo_condenseur_voir_bornier_moteur": "Couplage Étoile (Y)", "ventilo_condenseur_voir_plaque_signaletique": "Indique couplage Triangle (D) pour tension réseau",
                "intensite_ventilo_cond": {"value": 0.2, "unit": "A", "deviation": "low"},
               "intensite_compresseur": {"value": 5.9, "unit": "A", "deviation": "high"}
-         }
+         },
+          "explication_consequences": "Un moteur triphasé prévu pour un couplage Triangle (tension réseau entre phases) mais couplé en Étoile recevra une tension par enroulement plus faible (tension / sqrt(3)). Il tournera beaucoup moins vite et manquera de puissance. Appliqué au ventilateur condenseur, cela réduit le débit d'air et fait monter la HP.",
+         "explication_detection": "Symptômes de manque de débit d'air condenseur (HP haute...). La vérification du bornier moteur et de la plaque signalétique (Niv 4) révèle l'erreur de couplage. L'intensité du moteur de ventilateur est anormalement basse."
       },
        {
         "id": 42,"level": 4,"nom": "Condenseur trop petit / Moteur 60Hz sur un réseau 50 Hz",
         "mesures": {
-               "manometres_hp": { "value": 18.5, "unit": "bar", "deviation": "high" },
-              "manometres_bp": { "value": 4.3, "unit": "bar", "deviation": "normal" },
-              "compresseur_temp_aspiration": { "value": 17, "unit": "°C", "deviation": "high" },
-              "compresseur_temp_refoulement": { "value": 96, "unit": "°C", "deviation": "high" },
-              "condenseur_voir": "Propre",
-              "condenseur_temp_sortie_air": { "value": 31, "unit": "°C", "deviation": "low" },
+               "manometres_hp": { "value": 18.5, "unit": "bar", "deviation": "high" }, "manometres_bp": { "value": 4.3, "unit": "bar", "deviation": "normal" },
+              "compresseur_temp_aspiration": { "value": 17, "unit": "°C", "deviation": "high" }, "compresseur_temp_refoulement": { "value": 96, "unit": "°C", "deviation": "high" },
+              "condenseur_voir": "Propre", "condenseur_temp_sortie_air": { "value": 31, "unit": "°C", "deviation": "low" },
               "debit_air_condenseur": {"value": 800, "unit": "m3/h", "deviation": "low"},
-               "ventilo_condenseur_voir_plaque_signaletique": "Indique 60Hz",
-               "intensite_ventilo_cond": {"value": 0.6, "unit": "A", "deviation": "high"},
+               "ventilo_condenseur_voir_plaque_signaletique": "Indique 60Hz", "intensite_ventilo_cond": {"value": 0.6, "unit": "A", "deviation": "high"},
               "intensite_compresseur": {"value": 5.8, "unit": "A", "deviation": "high"}
-         }
+         },
+         "explication_consequences": "Comme pour l'évaporateur (Panne 37), un moteur 60Hz sur réseau 50Hz tourne moins vite. Le débit d'air du ventilateur condenseur est réduit, la HP monte.",
+         "explication_detection": "Symptômes de manque de débit d'air condenseur. La vérification de la plaque moteur (Niv 4) montre l'incompatibilité de fréquence. L'intensité du moteur de ventilateur peut être élevée."
       },
        {
         "id": 43,"level": 4,"nom": "Compresseur trop petit / Clapet BP cassé",
         "mesures": {
-              "manometres_hp": { "value": 10, "unit": "bar", "deviation": "low" },
-              "manometres_bp": { "value": 6, "unit": "bar", "deviation": "high" },
-              "compresseur_temp_aspiration": { "value": 22, "unit": "°C", "deviation": "high" },
-              "compresseur_temp_refoulement": { "value": 65, "unit": "°C", "deviation": "low" },
+              "manometres_hp": { "value": 10, "unit": "bar", "deviation": "low" }, "manometres_bp": { "value": 6, "unit": "bar", "deviation": "high" },
+              "compresseur_temp_aspiration": { "value": 22, "unit": "°C", "deviation": "high" }, "compresseur_temp_refoulement": { "value": 65, "unit": "°C", "deviation": "low" },
               "compresseur_controle_mecanique_clapets": "Clapet(s) aspiration cassé(s) ou non étanche(s)",
               "intensite_compresseur": {"value": 3.8, "unit": "A", "deviation": "low"}
-         }
+         },
+         "explication_consequences": "Un clapet d'aspiration cassé ou non étanche laisse une partie des gaz refluer vers la BP pendant la compression. Le compresseur 'pompe' mal : la BP monte car les gaz ne sont pas correctement aspirés/isolés, la HP baisse car la compression est inefficace.",
+         "explication_detection": "HP basse et BP haute simultanément. T° refoulement basse. Le contrôle mécanique des clapets (Niv 4) confirme le défaut sur le(s) clapet(s) BP (aspiration)."
       },
        {
         "id": 44,"level": 4,"nom": "Compresseur trop petit / Clapet HP cassé",
         "mesures": {
-              "manometres_hp": { "value": 9, "unit": "bar", "deviation": "low" },
-              "manometres_bp": { "value": 5.5, "unit": "bar", "deviation": "high" },
+              "manometres_hp": { "value": 9, "unit": "bar", "deviation": "low" }, "manometres_bp": { "value": 5.5, "unit": "bar", "deviation": "high" },
               "compresseur_temp_aspiration": { "value": 25, "unit": "°C", "deviation": "high" },
               "compresseur_temp_refoulement": { "value": 75, "unit": "°C", "deviation": "normal" },
               "compresseur_controle_mecanique_clapets": "Clapet(s) refoulement cassé(s) ou non étanche(s)",
               "intensite_compresseur": {"value": 3.9, "unit": "A", "deviation": "low"}
-         }
+         },
+          "explication_consequences": "Un clapet de refoulement cassé ou non étanche laisse les gaz chauds HP refluer dans le cylindre pendant la phase d'aspiration. Cela réduit la quantité de gaz frais aspirés (la BP monte) et empêche la HP de monter correctement.",
+         "explication_detection": "HP basse et BP haute (similaire clapet BP cassé). La T° d'aspiration peut être anormalement élevée à cause du reflux de gaz chauds. Le contrôle mécanique des clapets (Niv 4) confirme le défaut sur le(s) clapet(s) HP (refoulement)."
       },
        {
         "id": 45,"level": 4,"nom": "Compresseur trop petit / Joint de culasse non étanche entre BP et HP",
         "mesures": {
-              "manometres_hp": { "value": 10.5, "unit": "bar", "deviation": "low" },
-              "manometres_bp": { "value": 5.8, "unit": "bar", "deviation": "high" },
-              "compresseur_temp_aspiration": { "value": 24, "unit": "°C", "deviation": "high" },
-              "compresseur_temp_refoulement": { "value": 70, "unit": "°C", "deviation": "low" },
-               "compresseur_controle_mecanique_clapets": "Clapets OK",
-               "compresseur_controle_fuites": "Fuite interne détectée (joint culasse)",
+              "manometres_hp": { "value": 10.5, "unit": "bar", "deviation": "low" }, "manometres_bp": { "value": 5.8, "unit": "bar", "deviation": "high" },
+              "compresseur_temp_aspiration": { "value": 24, "unit": "°C", "deviation": "high" }, "compresseur_temp_refoulement": { "value": 70, "unit": "°C", "deviation": "low" },
+               "compresseur_controle_mecanique_clapets": "Clapets OK", "compresseur_controle_fuites": "Fuite interne détectée (joint culasse)",
               "intensite_compresseur": {"value": 3.7, "unit": "A", "deviation": "low"}
-         }
+         },
+         "explication_consequences": "Une fuite au niveau du joint de culasse permet aux gaz HP de passer directement vers la chambre BP. Cela réduit l'efficacité de la compression (HP basse) et augmente la pression côté aspiration (BP haute).",
+         "explication_detection": "HP basse et BP haute. Le contrôle des clapets (Niv 4) les montre OK. Un test de fuite interne spécifique (ou un test de rendement volumétrique) révèle la fuite au joint de culasse."
       },
        {
         "id": 46,"level": 4,"nom": "Compresseur trop petit / Soupape de sécurité interne fuit",
         "mesures": {
-              "manometres_hp": { "value": 11, "unit": "bar", "deviation": "low" },
-              "manometres_bp": { "value": 5.5, "unit": "bar", "deviation": "high" },
-               "compresseur_temp_aspiration": { "value": 23, "unit": "°C", "deviation": "high" },
-              "compresseur_temp_refoulement": { "value": 72, "unit": "°C", "deviation": "low" },
-              "compresseur_controle_mecanique_clapets": "Clapets OK",
-              "compresseur_controle_fuites": "Fuite interne détectée (soupape de sécurité)",
+              "manometres_hp": { "value": 11, "unit": "bar", "deviation": "low" }, "manometres_bp": { "value": 5.5, "unit": "bar", "deviation": "high" },
+               "compresseur_temp_aspiration": { "value": 23, "unit": "°C", "deviation": "high" }, "compresseur_temp_refoulement": { "value": 72, "unit": "°C", "deviation": "low" },
+              "compresseur_controle_mecanique_clapets": "Clapets OK", "compresseur_controle_fuites": "Fuite interne détectée (soupape de sécurité)",
               "intensite_compresseur": {"value": 3.9, "unit": "A", "deviation": "low"}
-         }
+         },
+         "explication_consequences": "Certains compresseurs ont une soupape de sécurité interne entre HP et BP pour éviter les surpressions extrêmes. Si cette soupape fuit en permanence, elle crée une communication directe HP->BP, similaire à un joint de culasse défectueux.",
+         "explication_detection": "HP basse et BP haute. Clapets OK (Niv 4). Un test de fuite interne (Niv 4) ou l'impossibilité d'atteindre une HP normale malgré des conditions externes OK pointe vers la soupape de sécurité interne."
       }
     ]
   }

@@ -10,14 +10,16 @@
     #circuit-svg { max-width: 100%; height: auto; border: 1px solid #ccc; margin-bottom: 1em; background-color: #fff; }
     #circuit-svg .component { cursor: pointer; transition: fill 0.2s ease; }
     #circuit-svg .component:hover .component-fill { fill: #e0e0e0; }
-    #journal { max-height: 350px; overflow-y: auto; background-color: #f8f8f8; padding: 10px; margin-bottom: 1em; border-radius: 4px; font-size: 0.9em; border: 1px solid #eee; }
+    #journal { max-height: 350px; overflow-y: auto; background-color: #ffffff; padding: 10px; margin-bottom: 1em; border-radius: 4px; font-size: 0.9em; border: 1px solid #dbdbdb; }
     .journal-entry { margin-bottom: 0.3em; padding-bottom: 0.3em; border-bottom: 1px dashed #ddd; color: #4a4a4a; }
-    .journal-entry strong { color: inherit}
+    .journal-entry strong { color: inherit; }
     .journal-entry:last-child { border-bottom: none; }
     .action-menu { display: none; position: absolute; background-color: white; border: 1px solid #dbdbdb; box-shadow: 0 8px 8px rgba(10, 10, 10, 0.1); z-index: 20; border-radius: 4px; padding: 0.5rem 0; min-width: 180px; font-size: 0.9rem;}
     .action-menu a { display: block; padding: 0.375rem 1rem; color: #4a4a4a; white-space: nowrap; }
     .action-menu a:hover { background-color: #f5f5f5; color: #363636; }
     .level-item .title { margin-bottom: 0 !important; }
+    .tab-content { display: none; }
+    .tab-content.is-active { display: block; }
   </style>
 </head>
 <body>
@@ -31,82 +33,70 @@
         </div>
       </div>
 
-       <div class="level box mb-4 py-3 px-4">
-           <div class="level-item has-text-centered"><div><p class="heading">Niveau</p><p class="title is-4" id="currentLevel">?</p></div></div>
-           <div class="level-item has-text-centered"><div><p class="heading">Score</p><p class="title is-4" id="currentScore">?</p></div></div>
-           <div class="level-item has-text-centered"><div><p class="heading">Efficacité</p><p class="title is-4" id="currentEfficiency">?</p></div></div>
-           </div>
-       <div class="notification is-light mb-4 py-2 px-3" id="messageZone" style="min-height: 40px;">Bienvenue ! Cliquez sur "Nouvelle Partie".</div>
+      <div class="tabs is-centered">
+          <ul>
+              <li class="is-active" data-tab="simulator"><a><span class="icon is-small"><i class="fas fa-cogs" aria-hidden="true"></i></span><span>Simulateur</span></a></li>
+              <li data-tab="solver"><a><span class="icon is-small"><i class="fas fa-search" aria-hidden="true"></i></span><span>Solveur de Pannes</span></a></li>
+          </ul>
+      </div>
 
-      <div class="columns">
-        <div class="column is-two-thirds">
-          <h2 class="title is-5">Circuit Frigorifique (Simplifié)</h2>
-          <svg id="circuit-svg" viewBox="0 0 450 300" xmlns="http://www.w3.org/2000/svg">
-              <defs>
-                <style>
-                  .line-hp { stroke: #ff3860; stroke-width: 2.5; fill: none; } .line-bp { stroke: #3273dc; stroke-width: 2.5; fill: none; }
-                  .line-liq { stroke: #cc0033; stroke-width: 2.5; fill: none; } .component-fill { fill: #f5f5f5; }
-                  .component-stroke { stroke: #363636; stroke-width: 1; } .component-text { font-size: 10px; font-family: sans-serif; text-anchor: middle; fill: #363636; pointer-events: none; }
-                  .component { cursor: pointer; transition: fill 0.2s ease; } .component:hover .component-fill { fill: #e0e0e0; }
-                  .fan-blade { fill: #a0a0a0; stroke: #666; stroke-width: 0.5;}
-                </style>
-                <marker id="arrow-hp" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"> <path d="M 0 0 L 10 5 L 0 10 z" fill="#ff3860" /> </marker>
-                <marker id="arrow-bp" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"> <path d="M 0 0 L 10 5 L 0 10 z" fill="#3273dc" /> </marker>
-                <marker id="arrow-liq" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"> <path d="M 0 0 L 10 5 L 0 10 z" fill="#cc0033" /> </marker>
-              </defs>
-              <path class="line-bp" d="M 80 100 Q 80 50 130 50" marker-end="url(#arrow-bp)" /> <path class="line-hp" d="M 190 50 Q 250 50 250 90" marker-end="url(#arrow-hp)" /> <path class="line-hp" d="M 250 190 L 250 230 L 220 230" marker-end="url(#arrow-hp)" /> <path class="line-liq" d="M 180 230 L 140 230" marker-end="url(#arrow-liq)" /> <path class="line-liq" d="M 100 230 L 60 230 Q 40 230 40 200 L 40 160 " marker-end="url(#arrow-liq)" /> <path class="line-bp" d="M 40 140 L 40 100 Q 40 80 60 80" marker-end="url(#arrow-bp)" />
-              <g id="svg-compresseur" data-component="compresseur" class="component"> <rect class="component-fill component-stroke" x="130" y="30" width="60" height="40" rx="5" /> <text class="component-text" x="160" y="55">Compresseur</text> <circle cx="130" cy="50" r="4" fill="#3273dc" stroke="black"/> <circle cx="190" cy="50" r="4" fill="#ff3860" stroke="black"/> </g>
-              <g id="svg-condenseur" data-component="condenseur" class="component"> <rect class="component-fill component-stroke" x="230" y="90" width="40" height="100" rx="3" /> <text class="component-text" x="250" y="110">Cond.</text> <circle class="fan-blade" cx="285" cy="140" r="15" /> <line class="fan-blade" x1="285" y1="125" x2="285" y2="155" /> <line class="fan-blade" x1="270" y1="140" x2="300" y2="140" /> <line class="fan-blade" x1="274" y1="129" x2="296" y2="151" /> <line class="fan-blade" x1="296" y1="129" x2="274" y2="151" /> </g>
-              <g id="svg-bouteille" data-component="bouteille_liquide" class="component"> <rect class="component-fill component-stroke" x="180" y="220" width="40" height="20" rx="10"/> <text class="component-text" x="200" y="233">Bouteille</text> </g>
-              <g id="svg-deshydrateur" data-component="deshydrateur" class="component"> <rect class="component-fill component-stroke" x="100" y="223" width="40" height="14" rx="2"/> <text class="component-text" x="120" y="233">Déshy.</text> </g>
-              <g id="svg-electrovanne" data-component="electrovanne" class="component"> <rect class="component-fill component-stroke" x="60" y="220" width="20" height="20" /> <rect class="component-fill component-stroke" x="65" y="210" width="10" height="10" /> <text class="component-text" x="70" y="248">EV</text> </g>
-              <g id="svg-detendeur" data-component="detendeur" class="component"> <rect class="component-fill component-stroke" x="30" y="140" width="20" height="20" /> <text class="component-text" x="40" y="135">Dét.</text> <path d="M 50 150 Q 60 140 60 120" stroke="#777" stroke-width="1" fill="none" stroke-dasharray="2,2"/> <circle cx="60" cy="120" r="3" fill="#aaa" stroke="#333"/> </g>
-              <g id="svg-evaporateur" data-component="evaporateur" class="component"> <rect class="component-fill component-stroke" x="60" y="80" width="40" height="100" rx="3" /> <text class="component-text" x="80" y="100">Evap.</text> <circle class="fan-blade" cx="115" cy="130" r="15" /> <line class="fan-blade" x1="115" y1="115" x2="115" y2="145" /> <line class="fan-blade" x1="100" y1="130" x2="130" y2="130" /> <line class="fan-blade" x1="104" y1="119" x2="126" y2="141" /> <line class="fan-blade" x1="126" y1="119" x2="104" y2="141" /> </g>
-          </svg>
+      <div>
+          <div id="simulatorContent" class="tab-content is-active">
+              <div class="level box mb-4 py-3 px-4">
+                   <div class="level-item has-text-centered"><div><p class="heading">Niveau</p><p class="title is-4" id="currentLevel">?</p></div></div>
+                   <div class="level-item has-text-centered"><div><p class="heading">Score</p><p class="title is-4" id="currentScore">?</p></div></div>
+                   <div class="level-item has-text-centered"><div><p class="heading">Efficacité</p><p class="title is-4" id="currentEfficiency">?</p></div></div>
+               </div>
+              <div class="notification is-light mb-4 py-2 px-3" id="messageZone" style="min-height: 40px;">Bienvenue !</div>
+              <div class="columns">
+                  <div class="column is-two-thirds">
+                      <h2 class="title is-5">Circuit Frigorifique (Simplifié)</h2>
+                       <svg id="circuit-svg" viewBox="0 0 450 300" xmlns="http://www.w3.org/2000/svg">
+                           <defs> <style> .line-hp { stroke: #ff3860; stroke-width: 2.5; fill: none; } .line-bp { stroke: #3273dc; stroke-width: 2.5; fill: none; } .line-liq { stroke: #cc0033; stroke-width: 2.5; fill: none; } .component-fill { fill: #f5f5f5; } .component-stroke { stroke: #363636; stroke-width: 1; } .component-text { font-size: 10px; font-family: sans-serif; text-anchor: middle; fill: #363636; pointer-events: none; } .component { cursor: pointer; transition: fill 0.2s ease; } .component:hover .component-fill { fill: #e0e0e0; } .fan-blade { fill: #a0a0a0; stroke: #666; stroke-width: 0.5;} </style> <marker id="arrow-hp" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"> <path d="M 0 0 L 10 5 L 0 10 z" fill="#ff3860" /> </marker> <marker id="arrow-bp" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"> <path d="M 0 0 L 10 5 L 0 10 z" fill="#3273dc" /> </marker> <marker id="arrow-liq" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"> <path d="M 0 0 L 10 5 L 0 10 z" fill="#cc0033" /> </marker> </defs>
+                           <path class="line-bp" d="M 80 100 Q 80 50 130 50" marker-end="url(#arrow-bp)" /> <path class="line-hp" d="M 190 50 Q 250 50 250 90" marker-end="url(#arrow-hp)" /> <path class="line-hp" d="M 250 190 L 250 230 L 220 230" marker-end="url(#arrow-hp)" /> <path class="line-liq" d="M 180 230 L 140 230" marker-end="url(#arrow-liq)" /> <path class="line-liq" d="M 100 230 L 60 230 Q 40 230 40 200 L 40 160 " marker-end="url(#arrow-liq)" /> <path class="line-bp" d="M 40 140 L 40 100 Q 40 80 60 80" marker-end="url(#arrow-bp)" />
+                           <g id="svg-compresseur" data-component="compresseur" class="component"> <rect class="component-fill component-stroke" x="130" y="30" width="60" height="40" rx="5" /> <text class="component-text" x="160" y="55">Compresseur</text> <circle cx="130" cy="50" r="4" fill="#3273dc" stroke="black"/> <circle cx="190" cy="50" r="4" fill="#ff3860" stroke="black"/> </g>
+                           <g id="svg-condenseur" data-component="condenseur" class="component"> <rect class="component-fill component-stroke" x="230" y="90" width="40" height="100" rx="3" /> <text class="component-text" x="250" y="110">Cond.</text> <circle class="fan-blade" cx="285" cy="140" r="15" /> <line class="fan-blade" x1="285" y1="125" x2="285" y2="155" /> <line class="fan-blade" x1="270" y1="140" x2="300" y2="140" /> <line class="fan-blade" x1="274" y1="129" x2="296" y2="151" /> <line class="fan-blade" x1="296" y1="129" x2="274" y2="151" /> </g>
+                           <g id="svg-bouteille" data-component="bouteille_liquide" class="component"> <rect class="component-fill component-stroke" x="180" y="220" width="40" height="20" rx="10"/> <text class="component-text" x="200" y="233">Bouteille</text> </g>
+                           <g id="svg-deshydrateur" data-component="deshydrateur" class="component"> <rect class="component-fill component-stroke" x="100" y="223" width="40" height="14" rx="2"/> <text class="component-text" x="120" y="233">Déshy.</text> </g>
+                           <g id="svg-electrovanne" data-component="electrovanne" class="component"> <rect class="component-fill component-stroke" x="60" y="220" width="20" height="20" /> <rect class="component-fill component-stroke" x="65" y="210" width="10" height="10" /> <text class="component-text" x="70" y="248">EV</text> </g>
+                           <g id="svg-detendeur" data-component="detendeur" class="component"> <rect class="component-fill component-stroke" x="30" y="140" width="20" height="20" /> <text class="component-text" x="40" y="135">Dét.</text> <path d="M 50 150 Q 60 140 60 120" stroke="#777" stroke-width="1" fill="none" stroke-dasharray="2,2"/> <circle cx="60" cy="120" r="3" fill="#aaa" stroke="#333"/> </g>
+                           <g id="svg-evaporateur" data-component="evaporateur" class="component"> <rect class="component-fill component-stroke" x="60" y="80" width="40" height="100" rx="3" /> <text class="component-text" x="80" y="100">Evap.</text> <circle class="fan-blade" cx="115" cy="130" r="15" /> <line class="fan-blade" x1="115" y1="115" x2="115" y2="145" /> <line class="fan-blade" x1="100" y1="130" x2="130" y2="130" /> <line class="fan-blade" x1="104" y1="119" x2="126" y2="141" /> <line class="fan-blade" x1="126" y1="119" x2="104" y2="141" /> </g>
+                       </svg>
+                  </div>
+                  <div class="column">
+                      <h2 class="title is-5">Journal des Mesures & Événements</h2>
+                      <div id="journal" class="content"></div>
+                      <button class="button is-primary is-fullwidth mt-4" id="poserDiagnosticBtn" disabled><span class="icon"><i class="fas fa-user-md"></i></span><span>Poser un Diagnostic</span></button>
+                      <button class="button is-link is-light is-fullwidth mt-2" id="voirExplicationsBtn" style="display: none;"><span class="icon"><i class="fas fa-info-circle"></i></span><span>Voir Explications Panne</span></button>
+                  </div>
+              </div>
+          </div> <div id="solverContent" class="tab-content">
+               <h2 class="title is-4">Solveur de Pannes Frigorifiques</h2>
+               <p class="subtitle is-6">Décrivez les symptômes pour obtenir des pistes.</p>
+               <div class="box">
+                   <div class="columns is-multiline is-mobile"> <div class="column is-half-tablet is-one-third-desktop"> <div class="field"> <label class="label is-small">Pression HP</label> <div class="control"> <div class="select is-fullwidth is-small"> <select data-symptom="hp_deviation"> <option value="">Inconnue</option> <option value="high">Haute</option> <option value="normal">Normale</option> <option value="low">Basse</option> </select> </div></div></div></div>
+                       <div class="column is-half-tablet is-one-third-desktop"> <div class="field"> <label class="label is-small">Pression BP</label> <div class="control"> <div class="select is-fullwidth is-small"> <select data-symptom="bp_deviation"> <option value="">Inconnue</option> <option value="high">Haute</option> <option value="normal">Normale</option> <option value="low">Basse</option> </select> </div></div></div></div>
+                        <div class="column is-half-tablet is-one-third-desktop"> <div class="field"> <label class="label is-small">T° Refoulement</label> <div class="control"> <div class="select is-fullwidth is-small"> <select data-symptom="refoulement_deviation"> <option value="">Inconnue</option> <option value="high">Haute</option> <option value="normal">Normale</option> <option value="low">Basse</option> </select> </div></div></div></div>
+                       <div class="column is-half-tablet is-one-third-desktop"> <div class="field"> <label class="label is-small">Surchauffe (Totale)</label> <div class="control"> <div class="select is-fullwidth is-small"> <select data-symptom="surchauffe_deviation"> <option value="">Inconnue</option> <option value="high">Haute</option> <option value="normal">Normale</option> <option value="low">Basse / Nulle</option> </select> </div></div></div></div>
+                       <div class="column is-half-tablet is-one-third-desktop"> <div class="field"> <label class="label is-small">Sous-refroidissement</label> <div class="control"> <div class="select is-fullwidth is-small"> <select data-symptom="sr_deviation"> <option value="">Inconnu</option> <option value="high">Haut</option> <option value="normal">Normal</option> <option value="low">Bas / Nul</option> </select> </div></div></div></div>
+                        <div class="column is-half-tablet is-one-third-desktop"> <div class="field"> <label class="label is-small">Delta T Air Cond.</label> <div class="control"> <div class="select is-fullwidth is-small"> <select data-symptom="delta_t_cond_air_deviation"> <option value="">Inconnu</option> <option value="high">Élevé</option> <option value="normal">Normal</option> <option value="low">Faible</option> </select> </div></div></div></div>
+                        <div class="column is-half-tablet is-one-third-desktop"> <div class="field"> <label class="label is-small">Delta T Air Evap.</label> <div class="control"> <div class="select is-fullwidth is-small"> <select data-symptom="delta_t_evap_air_deviation"> <option value="">Inconnu</option> <option value="high">Élevé</option> <option value="normal">Normal</option> <option value="low">Faible</option> </select> </div></div></div></div>
+                         <div class="column is-half-tablet is-one-third-desktop"> <div class="field"> <label class="label is-small">Voyant Liquide</label> <div class="control"> <div class="select is-fullwidth is-small"> <select data-symptom="voyant_etat"> <option value="">Inconnu</option> <option value="Clair">Clair</option> <option value="Bulles">Bulles</option> <option value="Flash gas">Flash Gas</option> </select> </div></div></div></div>
+                        <div class="column is-half-tablet is-one-third-desktop"> <div class="field"> <label class="label is-small">Givrage Évaporateur</label> <div class="control"> <div class="select is-fullwidth is-small"> <select data-symptom="evap_givre"> <option value="">Inconnu</option> <option value="Aucun">Aucun</option> <option value="Partiel">Partiel</option> <option value="Complet">Complet</option> </select> </div></div></div></div>
+                        <div class="column is-half-tablet is-one-third-desktop"> <div class="field"> <label class="label is-small">État Filtre Air</label> <div class="control"> <div class="select is-fullwidth is-small"> <select data-symptom="filtre_air_etat_select"> <option value="">Inconnu</option> <option value="Propre">Propre</option> <option value="Sale">Sale / Colmaté</option> </select> </div></div></div></div>
+                        <div class="column is-half-tablet is-one-third-desktop"> <div class="field"> <label class="label is-small">Aspect Condenseur</label> <div class="control"> <div class="select is-fullwidth is-small"> <select data-symptom="cond_etat_select"> <option value="">Inconnu</option> <option value="Propre">Propre</option> <option value="Sale">Sale / Obstrué</option> </select> </div></div></div></div>
+                         <div class="column is-half-tablet is-one-third-desktop"> <div class="field"> <label class="label is-small">Delta T Déshydrateur</label> <div class="control"> <div class="select is-fullwidth is-small"> <select data-symptom="delta_t_deshy_deviation"> <option value="">Inconnu</option> <option value="high">Élevé (&gt;1K)</option> <option value="normal">Normal (~0K)</option> </select> </div></div></div></div>
+                        <div class="column is-half-tablet is-one-third-desktop"> <div class="field"> <label class="label is-small">Delta T Électrovanne</label> <div class="control"> <div class="select is-fullwidth is-small"> <select data-symptom="delta_t_ev_deviation"> <option value="">Inconnu</option> <option value="high">Élevé (&gt;1K)</option> <option value="normal">Normal (~0K)</option> </select> </div></div></div></div>
+                   </div>
+                   <div class="field mt-4"> <div class="control"> <button class="button is-primary" id="solveProblemBtn">Trouver Causes Possibles</button> </div></div>
+               </div>
+               <div id="solverResults" class="mt-5" style="display: none;"> <h3 class="title is-5">Diagnostics Possibles :</h3> <div id="solverResultsList" class="content"></div> </div>
+           </div> </div><div class="modal" id="diagnosticModal"> <div class="modal-background"></div> <div class="modal-card"> <header class="modal-card-head"> <p class="modal-card-title">Quel est votre diagnostic ?</p> <button class="delete" aria-label="close" id="closeModalBtn"></button> </header> <section class="modal-card-body"> <p class="mb-2">Pannes possibles (Niveau <span id="modalLevelInfo">?</span> et inférieurs) :</p> <div class="field"> <div class="control"> <div class="select is-fullwidth"> <select id="diagnosticSelect"> <option value="">-- Choisissez la panne --</option> </select> </div></div></div> <div class="field mt-4"> <label class="label" for="betAmount">Votre Pari (Max: <span id="maxBetAmount">?</span> points)</label> <div class="control has-icons-left"> <input class="input" type="number" id="betAmount" placeholder="Points à parier" min="1"> <span class="icon is-small is-left"> <i class="fas fa-coins"></i> </span> </div> <p class="help">Entrez le nombre de points.</p> </div> <div id="diagnosticAttemptsInfo" class="mt-2 has-text-weight-medium"></div> </section> <footer class="modal-card-foot is-justify-content-flex-end"> <button class="button" id="cancelModalBtn">Annuler</button> <button class="button is-success" id="confirmerDiagnosticBtn">Parier et Confirmer</button> </footer> </div> </div>
+      <div class="modal" id="helpModal"> <div class="modal-background"></div> <div class="modal-card"> <header class="modal-card-head"> <p class="modal-card-title">Aide - Simulateur FrigoDiag V2</p> <button class="delete" aria-label="close" id="closeHelpModalBtn"></button> </header> <section class="modal-card-body content"> <h4>Objectif</h4> <p>Diagnostiquer correctement les pannes frigorifiques simulées.</p> <h4>Déroulement (Simulateur)</h4> <ol> <li>Cliquez sur "Nouvelle Partie".</li> <li>Le système présente une panne.</li> <li>Cliquez sur les composants du schéma pour choisir des mesures.</li> <li>Mesures HP/BP via menu Compresseur.</li> <li>Chaque mesure coûte des points.</li> <li>Cliquez sur "Poser un Diagnostic", choisissez la panne, entrez votre pari, confirmez.</li> <li>Résultat correct = gain pari. Incorrect = perte pari.</li> <li>Si incorrect (1ère fois), vous avez une seconde chance.</li> <li>Progression à travers 4 niveaux.</li> <li>Cliquez sur "Voir Explications..." après un diagnostic finalisé.</li></ol><h4>Mode Solveur</h4><p>Allez dans l'onglet "Solveur", décrivez les symptômes, cliquez sur "Trouver Causes".</p> <h4>Bonne chance !</h4> </section> <footer class="modal-card-foot is-justify-content-flex-end"> <button class="button" id="okHelpModalBtn">Compris</button> </footer> </div> </div>
+      <div class="modal" id="explicationsModal"> <div class="modal-background"></div> <div class="modal-card"> <header class="modal-card-head"> <p class="modal-card-title">Explications de la Panne</p> <button class="delete" aria-label="close" id="closeExplicationsModalBtn"></button> </header> <section class="modal-card-body content"> <h4 class="subtitle is-5">Conséquences :</h4> <p id="explanationConsequences"></p> <h4 class="subtitle is-5 mt-4">Détection :</h4> <p id="explanationDetection"></p> </section> <footer class="modal-card-foot is-justify-content-flex-end"> <button class="button" id="okExplicationsModalBtn">OK</button> </footer> </div> </div>
+      <div id="componentActionMenu" class="action-menu"></div>
 
-           </div>
-
-        <div class="column">
-          <h2 class="title is-5">Journal des Mesures & Événements</h2>
-          <div id="journal" class="content"></div>
-          <button class="button is-primary is-fullwidth mt-4" id="poserDiagnosticBtn" disabled>
-              <span class="icon"><i class="fas fa-user-md"></i></span><span>Poser un Diagnostic</span>
-          </button>
-        </div>
-      </div> </div> </section>
-
-  <div class="modal" id="diagnosticModal">
-    <div class="modal-background"></div>
-    <div class="modal-card">
-      <header class="modal-card-head">
-        <p class="modal-card-title">Quel est votre diagnostic ?</p> <button class="delete" aria-label="close" id="closeModalBtn"></button>
-      </header>
-      <section class="modal-card-body">
-         <p class="mb-2">Pannes possibles (Niveau <span id="modalLevelInfo">?</span> et inférieurs) :</p>
-         <div class="field"> <div class="control"> <div class="select is-fullwidth"> <select id="diagnosticSelect"> <option value="">-- Choisissez la panne --</option> </select> </div></div></div>
-         <div class="field mt-4">
-             <label class="label" for="betAmount">Votre Pari (Max: <span id="maxBetAmount">?</span> points)</label>
-             <div class="control has-icons-left"> <input class="input" type="number" id="betAmount" placeholder="Points à parier" min="1"> <span class="icon is-small is-left"> <i class="fas fa-coins"></i> </span> </div>
-             <p class="help">Entrez le nombre de points que vous pariez sur ce diagnostic.</p>
-         </div>
-         <div id="diagnosticAttemptsInfo" class="mt-2 has-text-weight-medium"></div>
-      </section>
-      <footer class="modal-card-foot is-justify-content-flex-end"> <button class="button" id="cancelModalBtn">Annuler</button> <button class="button is-success" id="confirmerDiagnosticBtn">Parier et Confirmer</button> </footer>
-    </div>
-  </div>
-
-   <div class="modal" id="helpModal">
-       <div class="modal-background"></div>
-       <div class="modal-card">
-           <header class="modal-card-head"> <p class="modal-card-title">Aide - Simulateur FrigoDiag V2</p> <button class="delete" aria-label="close" id="closeHelpModalBtn"></button> </header>
-           <section class="modal-card-body content"> <h4>Objectif</h4> <p>Diagnostiquer correctement les pannes frigorifiques simulées.</p> <h4>Déroulement</h4> <ol> <li>Cliquez sur "Nouvelle Partie".</li> <li>Le système présente une panne.</li> <li>Cliquez sur les composants du schéma pour afficher et choisir des mesures.</li> <li>Les mesures HP/BP sont disponibles directement via le menu du compresseur.</li>
-               <li>Chaque mesure coûte quelques points.</li> <li>Lorsque vous pensez avoir trouvé la panne, cliquez sur "Poser un Diagnostic".</li> <li>Choisissez la panne, entrez votre pari et confirmez.</li> <li>Le résultat (correct/incorrect) met à jour votre score basé sur le pari.</li> <li>Si incorrect, vous avez une seconde chance.</li> <li>Le jeu progresse à travers 4 niveaux.</li> </ol> <h4>Bonne chance !</h4> </section>
-           <footer class="modal-card-foot is-justify-content-flex-end"> <button class="button" id="okHelpModalBtn">Compris</button> </footer>
-       </div>
-   </div>
-
-   <div id="componentActionMenu" class="action-menu"></div>
-
+    </div> </section>
   <script src="script.js"></script>
 </body>
 </html>
